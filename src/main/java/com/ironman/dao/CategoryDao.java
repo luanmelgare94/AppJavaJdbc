@@ -19,23 +19,21 @@ public class CategoryDao {
 
         String sqlQuery;
 
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
+
+        // sql query
+        sqlQuery = "select * from categories";
 
         // process
-        try {
-            // sql query
-            sqlQuery = "select * from categories";
+        try (
+                // Get connection
+                Connection connection = new ConnectionCore().getConnection();
 
-            // Get connection
-            connection = new ConnectionCore().getConnection();
+                // Prepare statement
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 
-            // Prepare statement
-            preparedStatement = connection.prepareStatement(sqlQuery);
-
-            // Execute query
-            resultSet = preparedStatement.executeQuery();
+                // Execute query
+                ResultSet resultSet = preparedStatement.executeQuery();
+        ) {
 
             // Set data
             while (resultSet.next()) {
@@ -51,22 +49,6 @@ public class CategoryDao {
             }
         } catch (Exception e) {
             System.out.println("CategoryDao::findAl::Error: " + e.getMessage());
-        } finally {
-            try {
-                if (resultSet != null && !resultSet.isClosed()) {
-                    resultSet.close();
-                }
-
-                if (preparedStatement != null && !preparedStatement.isClosed()) {
-                    preparedStatement.close();
-                }
-
-                if (connection != null && !connection.isClosed()) {
-                    connection.close();
-                }
-            } catch (Exception e) {
-                System.out.println("CategoryDao::findAll::finally: " + e.getMessage());
-            }
         }
         // result
         return categories;
