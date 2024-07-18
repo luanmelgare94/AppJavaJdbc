@@ -11,7 +11,7 @@ import java.util.List;
 
 public class CategoryDao {
 
-    public List<Category> findAll() {
+    public List<Category> findAll() throws Exception{
         // Attributes
         List<Category> categories = new ArrayList<>();
 
@@ -47,8 +47,6 @@ public class CategoryDao {
                 category.setUpdatedAt(resultSet.getObject("updated_at", LocalDateTime.class));
                 categories.add(category);
             }
-        } catch (Exception e) {
-            System.out.println("CategoryDao::findAl::Error: " + e.getMessage());
         }
         // result
         return categories;

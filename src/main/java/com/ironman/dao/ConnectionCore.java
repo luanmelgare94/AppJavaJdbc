@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 public class ConnectionCore {
 
-    public Connection getConnection () {
+    public Connection getConnection() throws Exception {
         // Attributes
         String hostName = "localhost";
         String port = "5432";
@@ -15,19 +15,13 @@ public class ConnectionCore {
 
         // process
 
-        try {
-            // load driver
-            Class.forName("org.postgresql.Driver");
+        // load driver
+        Class.forName("org.postgresql.Driver");
 
-            // url connection
-            String url = "jdbc:postgresql://" + hostName + ":" + port + "/" + dbName;
+        // url connection
+        String url = "jdbc:postgresql://" + hostName + ":" + port + "/" + dbName;
 
-            // result
-            return DriverManager.getConnection(url, userName, password);
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-
-        return null;
+        // result
+        return DriverManager.getConnection(url, userName, password);
     }
 }
