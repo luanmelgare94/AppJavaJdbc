@@ -19,9 +19,9 @@ public class CategoryDao {
 
         String sqlQuery;
 
-        Connection connection;
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
         // process
         try {
@@ -51,6 +51,22 @@ public class CategoryDao {
             }
         } catch (Exception e) {
             System.out.println("CategoryDao::findAl::Error: " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null && !resultSet.isClosed()) {
+                    resultSet.close();
+                }
+
+                if (preparedStatement != null && !preparedStatement.isClosed()) {
+                    preparedStatement.close();
+                }
+
+                if (connection != null && !connection.isClosed()) {
+                    connection.close();
+                }
+            } catch (Exception e) {
+                System.out.println("CategoryDao::findAll::finally: " + e.getMessage());
+            }
         }
         // result
         return categories;
