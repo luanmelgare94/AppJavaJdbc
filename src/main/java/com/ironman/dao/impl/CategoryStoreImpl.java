@@ -1,18 +1,17 @@
 package com.ironman.dao.impl;
 
 import com.ironman.dao.CategoryDao;
-import com.ironman.dao.ConnectionCore;
+import com.ironman.dao.core.ConnectionCore;
 import com.ironman.entity.Category;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CategoryStoreImpl implements CategoryDao {
+public class CategoryStoreImpl extends ConnectionCore implements CategoryDao {
 
     @Override
     public List<Category> findAll() throws Exception {
@@ -29,7 +28,7 @@ public class CategoryStoreImpl implements CategoryDao {
         // process
         try (
                 // Get connection
-                Connection connection = new ConnectionCore().getConnection();
+                Connection connection = getConnection();
 
                 // Prepare statement
                 PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
@@ -65,7 +64,7 @@ public class CategoryStoreImpl implements CategoryDao {
 
         try (
                 // Get connection
-                Connection connection = new ConnectionCore().getConnection();
+                Connection connection = getConnection();
 
                 // Prepare statement
                 PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
