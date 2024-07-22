@@ -11,7 +11,7 @@ import java.util.List;
 
 public class CategoryDao {
 
-    public List<Category> findAll() throws Exception{
+    public List<Category> findAll() throws Exception {
         // Attributes
         List<Category> categories = new ArrayList<>();
 
@@ -50,6 +50,47 @@ public class CategoryDao {
         }
         // result
         return categories;
+    }
+
+    public Category findById(Long id) throws Exception {
+        // Attributes
+        Category category = null;
+        String sqlQuery;
+
+        // Process
+        sqlQuery = "select * from categories where id = ?";
+
+        try (
+                // Get connection
+                Connection connection = new ConnectionCore().getConnection();
+
+                // Prepare statement
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+        ) {
+            // set parameter
+            preparedStatement.setLong(1, id);
+
+            try (
+                    // Execute query
+                    ResultSet resultSet = preparedStatement.executeQuery();) {
+                // Set data
+                if (resultSet.next()) {
+                    category = new Category();
+                    category.setId(resultSet.getLong("id"));
+                    category.setName(resultSet.getString("name"));
+                    category.setDescription(resultSet.getString("description"));
+                    category.setUrlKey(resultSet.getString("url_key"));
+                    category.setState(resultSet.getString("state"));
+                    category.setCreatedAt(resultSet.getObject("created_at", LocalDateTime.class));
+                    category.setUpdatedAt(resultSet.getObject("updated_at", LocalDateTime.class));
+                }
+
+            }
+        }
+
+        // Result
+        return category;
     }
 
 }
