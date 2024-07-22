@@ -1,38 +1,32 @@
-package com.ironman.entity;
+package com.ironman.persistence.entity;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class Product {
+public class Category {
 
     private Long id;
     private String name;
     private String description;
-    private BigDecimal price;
-    private Integer stock;
-    private Long categoryId;
+    private String urlKey;
     private String state;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    // Constructor
-    public Product() {
+    // Constructors
+    public Category() {
     }
 
-    public Product(Long id, String name, String description, BigDecimal price, Integer stock, Long categoryId, String state, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Category(Long id, String name, String description, String urlKey, String state, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.price = price;
-        this.stock = stock;
-        this.categoryId = categoryId;
+        this.urlKey = urlKey;
         this.state = state;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
 
-    // Encapsulados
-
+    // Encapsulations
     public Long getId() {
         return id;
     }
@@ -57,28 +51,12 @@ public class Product {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public String getUrlKey() {
+        return urlKey;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
+    public void setUrlKey(String urlKey) {
+        this.urlKey = urlKey;
     }
 
     public String getState() {
