@@ -9,18 +9,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-public class CategoryDaoImpl implements CategoryDao {
+public class CategoryStoreImpl implements CategoryDao {
+
     @Override
     public List<Category> findAll() throws Exception {
         // Attributes
-        List<Category> categories = new ArrayList<>();
+        List<Category> categories = new LinkedList<>();
 
         Category category;
 
         String sqlQuery;
-
 
         // sql query
         sqlQuery = "select * from categories";
